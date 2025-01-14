@@ -1,0 +1,48 @@
+# Specific files and folders
+/_Binary/*_d.ini
+/_Binary/*_d.exe
+/_Binary/*_d.cfg
+/Z_DELETE
+
+#Solutions
+/_SolutionsAssignment
+/BTXs
+BTX_Solutions.sln
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+
+# Visual Studio specifics
+*.suo
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+
+# Fortran module files
+*.mod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+
+# Executables
+*.out
+*.app
+*.sdf
+*.opensdf
+
+# Interpreter
+*.stackdump
+*.opendb
+*.db
+.vs/
+
+/include/glm/out/build/x64-Debug

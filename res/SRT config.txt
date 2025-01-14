@@ -1,0 +1,7 @@
+copy "$(OutDir)$(TargetName)$(TargetExt)" "$(SolutionDir)_Binary"
+copy "$(OutDir)$(TargetName)$(TargetExt)" "$(SolutionDir)include\STR\bin"
+copy "$(OutDir)$(TargetName).lib" "$(SolutionDir)include\STR\lib"
+
+copy "$(OutDir)$(TargetName)$(TargetExt)" "$(SolutionDir)_Binary"
+copy "$(OutDir)$(TargetName)$(TargetExt)" "$(SolutionDir)include\STR\bin"
+copy "$(OutDir)$(TargetName).lib" "$(SolutionDir)include\STR\lib"
