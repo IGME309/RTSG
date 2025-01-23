@@ -12,8 +12,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5551282F-B293-4278-98DB-A3A53727D34F}</ProjectGuid>
-    <RootNamespace>HW01_STDQueue</RootNamespace>
-    <ProjectName>HW01_STDQueue</ProjectName>
+    <RootNamespace>HW01_TemplatedQueue</RootNamespace>
+    <ProjectName>HW01_TemplatedQueue</ProjectName>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -101,6 +101,7 @@
   <ItemGroup>
     <ClInclude Include="Alberto.h" />
     <ClInclude Include="Main.h" />
+    <ClInclude Include="MyQueue.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\res\ICON.rc" />
