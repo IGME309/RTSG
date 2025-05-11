@@ -9,7 +9,7 @@ Date: 2023/11
 #include "RTSG\TypeDefs.h"
 
 //System Class
-class Space
+class Node
 {
 	static uint m_uSpaceCount; //will store the number of Spaces instantiated
 	static uint m_uMaxLevel;//will store the maximum level an octant can go to
@@ -20,7 +20,7 @@ class Space
 	uint m_uChildren = 0;// Number of children on the Space (only the root will have children)
 	
 	RTSG::RigidBody* m_pRigidBody = nullptr; //To display the Space and calculate intersections with entities
-	Space* m_pChild[8] = { nullptr };//Will store the addresses of the children of the current Space
+	Node* m_pChild[8] = { nullptr };//Will store the addresses of the children of the current Space
 
 	RTSG::ModelManager* m_pModelMngr = nullptr; //So we can draw boxes
 	RTSG::EntityManager* m_pEntityMngr = nullptr; //So we can read the information for each entity
@@ -33,14 +33,14 @@ public:
 		- uint nIdealEntityCount = 5 -> Sets the ideal level of objects per octant
 	OUTPUT: class object
 	*/
-	Space(uint a_uMaxLevel = 2, uint a_uIdealEntityCount = 5);
+	Node(uint a_uMaxLevel = 2, uint a_uIdealEntityCount = 5);
 
 	/*
 	USAGE: Destructor
 	ARGUMENTS: ---
 	OUTPUT: ---
 	*/
-	~Space(void);
+	~Node(void);
 
 	/*
 	USAGE: Gets the center of the Space in global scape
@@ -123,21 +123,21 @@ private:
 	- float a_fSize -> size of each side of the Space volume
 	OUTPUT: class object
 	*/
-	Space(vector3 a_v3Center, vector3 a_v3Size);
+	Node(vector3 a_v3Center, vector3 a_v3Size);
 
 	/*
 	USAGE: Copy Constructor
 	ARGUMENTS: class object to copy
 	OUTPUT: class object instance
 	*/
-	Space(Space const& other);
+	Node(Node const& other);
 
 	/*
 	USAGE: Copy Assignment Operator
 	ARGUMENTS: class object to copy
 	OUTPUT: ---
 	*/
-	Space& operator=(Space const& other);
+	Node& operator=(Node const& other);
 
 	/*
 	USAGE: Deallocates member fields
@@ -159,7 +159,7 @@ private:
 	- Space& other -> object to swap content from
 	OUTPUT: ---
 	*/
-	void Swap(Space& other);
+	void Swap(Node& other);
 
 	/*
 	USAGE: Asks the Octant if it contains more than this many Rigid Bodies

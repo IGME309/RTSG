@@ -14,6 +14,7 @@ void Application::InitVariables(void)
 	uCount = 2500;
 #endif // DEBUG
 	//Message for the App
+	srand(time(0));
 	m_sToPrint = std::to_string(uCount) + " objects!";
 	//Create the objects and position them inside of a random position in a sphere
 	for (uint i = 0; i < uCount; i++)

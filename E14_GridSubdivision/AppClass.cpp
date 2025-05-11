@@ -18,36 +18,36 @@ void Application::InitVariables(void)
 	//Initialize how many divisions the grid will have (its even for simplified purposes)
 	m_nLevels = 2;
 	//Create the grid
-	m_pRootSpace = new Space(m_nLevels, m_nLevels, m_nLevels);
+	m_pRootSpace = new Node(m_nLevels, m_nLevels, m_nLevels);
 }
 void Application::Update(void)
 {
 	//Message to the user
 	m_sToPrint = std::to_string(m_nLevels) + " subdiv and "
-		+ std::to_string(m_nSpace) + " space is render.";
+		+ std::to_string(m_uSpace) + " space is render.";
 	//Know how many subdivisions the grid had last
 	static uint uSubdivisions = m_nLevels;
 	//If this number change create a new grid (its expensive to create so saving resources)
 	if (uSubdivisions != m_nLevels)
 	{
 		SafeDelete(m_pRootSpace); 
-		m_pRootSpace = new Space(m_nLevels, m_nLevels, m_nLevels);
+		m_pRootSpace = new Node(m_nLevels, m_nLevels, m_nLevels);
 		uSubdivisions = m_nLevels;
 	}
 	m_pSystem->Update();//Update the system
 	ArcBall();//Is the arcball active?
 	CameraRotation(); //Is the first person camera active?
 	//This play the grid
-	m_pRootSpace->Display(m_nSpace);
+	m_pRootSpace->Display(m_uSpace);
 	m_pEntityMngr->Update(); //Update Entity Manager (the one in the system)
 	uint uEntities = m_pEntityMngr->GetEntityCount();
-	if (m_nSpace < m_pRootSpace->GetNodeCount())
+	if (m_uSpace < m_pRootSpace->GetNodeCount())
 	{
 		for (uint i = 0; i < uEntities; i++)
 		{
 			RTSG::Entity* pEntity = m_pEntityMngr->GetEntity(i);
 			//Ask the entity if its in Space
-			if (pEntity->IsInSpace(m_nSpace))
+			if (pEntity->IsInSpace(m_uSpace))
 			{
 				m_pEntityMngr->AddEntityToRenderList(i); //Add objects to render list
 			}

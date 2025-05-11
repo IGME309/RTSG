@@ -17,10 +17,10 @@ Date: 2023/10
 
 class Application
 {
-	Space* m_pSpaceRoot = nullptr;
+	Node* m_pSpaceRoot = nullptr;
 	vector3 m_v3Position;
 	int m_nLevels = 1;
-	int m_nSpace = -1;
+	int m_uSpace = -1;
 
 private:
 	String m_sToPrint = "Hi there, hello!";

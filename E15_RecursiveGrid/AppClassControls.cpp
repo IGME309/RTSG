@@ -63,12 +63,12 @@ void Application::ProcessKeyReleased(sf::Event a_event)
 			m_nLevels = 0;
 		break;
 	case sf::Keyboard::LBracket:
-		m_nSpace--;
-		if (m_nSpace < -1)
-			m_nSpace = -1;
+		m_uSpace--;
+		if (m_uSpace < -1)
+			m_uSpace = -1;
 		break;
 	case sf::Keyboard::RBracket:
-		m_nSpace++;
+		m_uSpace++;
 		break;
 	}
 

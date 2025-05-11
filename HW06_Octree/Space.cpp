@@ -1,10 +1,10 @@
 #include "Space.h"
 using namespace RTSG;
 //  Space
-uint Space::m_uSpaceCount = 0;
-uint Space::m_uMaxLevel = 3;
-uint Space::m_uIdealEntityCount = 5;
-Space::Space(uint a_uMaxLevel, uint a_uIdealEntityCount)
+uint Node::m_uSpaceCount = 0;
+uint Node::m_uMaxLevel = 3;
+uint Node::m_uIdealEntityCount = 5;
+Node::Node(uint a_uMaxLevel, uint a_uIdealEntityCount)
 {
 	/*
 	* This constructor is meant to be used ONLY on the root Space, there is already a working constructor
@@ -42,7 +42,7 @@ Space::Space(uint a_uMaxLevel, uint a_uIdealEntityCount)
 	AssignIDstoEntities();
 }
 //Private constructor
-Space::Space(vector3 a_v3Center, vector3 a_v3Size)
+Node::Node(vector3 a_v3Center, vector3 a_v3Size)
 {
 	//This can only be applied to children not the root
 	//This constructor only takes the center and the size not the entities
@@ -58,7 +58,7 @@ Space::Space(vector3 a_v3Center, vector3 a_v3Size)
 	m_uID = m_uSpaceCount;//ID of the current Space
 	m_uSpaceCount++;//Increment the count of the Spaces
 }
-bool Space::IsColliding(uint a_uRBIndex)
+bool Node::IsColliding(uint a_uRBIndex)
 {
 	//Get how many objects there are in the world
 	//If the index given is larger than the number of elements in the bounding object there is no collision
@@ -66,20 +66,20 @@ bool Space::IsColliding(uint a_uRBIndex)
 	//Get all vectors in global space (the octant ones are already in Global)
 	return true; // for the sake of startup code
 }
-bool Space::ContainsAtLeast(uint a_nEntities)
+bool Node::ContainsAtLeast(uint a_nEntities)
 {
 	//This method will count how many entities are contained in the current Space
 	//if there are at least a_nEntities return true
 	return false;//hardcoded for class purposes
 }
-void Space::Subdivide(void)
+void Node::Subdivide(void)
 {
 	//For this method IF YOU HAVE NOT REACHED the maximum level
 	//you want to subdivide the current Space into 8 children
 	//Then divide the children if that child has more than the
 	//ideal count of entities
 }
-void Space::AssignIDstoEntities(void)
+void Node::AssignIDstoEntities(void)
 {
 	//Traverse the tree and on leafs check for all entities
 	//that are colliding with the current Space, then use
@@ -87,7 +87,7 @@ void Space::AssignIDstoEntities(void)
 	//entity knows they belong to this space/dimension/Space
 }
 #pragma region DOES NOT NEED CHANGES
-void Space::Init(void)
+void Node::Init(void)
 {
 	m_uID = 0;
 	m_uLevel = 0;
@@ -99,7 +99,7 @@ void Space::Init(void)
 	m_pModelMngr = ModelManager::GetInstance();
 	m_pEntityMngr = EntityManager::GetInstance();
 }
-void Space::Swap(Space& other)
+void Node::Swap(Node& other)
 {
 	std::swap(m_uID, other.m_uID);
 	std::swap(m_uLevel, other.m_uLevel);
@@ -114,7 +114,7 @@ void Space::Swap(Space& other)
 	m_pModelMngr = ModelManager::GetInstance();
 	m_pEntityMngr = EntityManager::GetInstance();
 }
-void Space::Release(void)
+void Node::Release(void)
 {
 	//recursive behavior, get to the children first then release root
 	for (uint nChild = 0; nChild < m_uChildren; nChild++)
@@ -147,7 +147,7 @@ void Space::Release(void)
 	}
 }
 //The big 3
-Space::Space(Space const& other)
+Node::Node(Node const& other)
 {
 	m_uID = other.m_uID;
 	m_uLevel = other.m_uLevel;
@@ -162,19 +162,19 @@ Space::Space(Space const& other)
 	m_pModelMngr = ModelManager::GetInstance();
 	m_pEntityMngr = EntityManager::GetInstance();
 }
-Space& Space::operator=(Space const& other)
+Node& Node::operator=(Node const& other)
 {
 	if (this != &other)
 	{
 		Release();
 		Init();
-		Space temp(other);
+		Node temp(other);
 		Swap(temp);
 	}
 	return *this;
 }
 
-void Space::Display(uint a_nIndex)
+void Node::Display(uint a_nIndex)
 {
 	//If a value larger than the count of Spaces is sent render all
 	if (a_nIndex > m_uSpaceCount)
@@ -203,7 +203,7 @@ void Space::Display(uint a_nIndex)
 			glm::translate(v3Center) * glm::scale(v3Size));
 	}
 }
-void Space::Display()
+void Node::Display()
 {
 	//Traverse the children
 	for (uint uChild = 0; uChild < m_uChildren; uChild++)
@@ -222,11 +222,11 @@ void Space::Display()
 		RTSG::eBTX_SPECIALMODEL::CUBEWHITE,
 		glm::translate(v3Center) * glm::scale(v3Size));
 }
-Space::~Space() { Release(); };
+Node::~Node() { Release(); };
 //Accessors
-vector3 Space::GetCenterGlobal(void) { return m_pRigidBody->GetCenterGlobal(); }
-vector3 Space::GetMinGlobal(void) { return m_pRigidBody->GetMinGlobal(); }
-vector3 Space::GetMaxGlobal(void) { return m_pRigidBody->GetMaxGlobal(); }
-bool Space::IsLeaf(void) { return m_uChildren == 0; } //Is it childless?
-uint Space::GetSpaceCount(void) { return m_uSpaceCount; }
+vector3 Node::GetCenterGlobal(void) { return m_pRigidBody->GetCenterGlobal(); }
+vector3 Node::GetMinGlobal(void) { return m_pRigidBody->GetMinGlobal(); }
+vector3 Node::GetMaxGlobal(void) { return m_pRigidBody->GetMaxGlobal(); }
+bool Node::IsLeaf(void) { return m_uChildren == 0; } //Is it childless?
+uint Node::GetSpaceCount(void) { return m_uSpaceCount; }
 #pragma endregion

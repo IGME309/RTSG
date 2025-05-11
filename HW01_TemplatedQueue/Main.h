@@ -6,6 +6,7 @@ on: 2017/06/02
 #define __MAIN_H_
 #include <iostream>
 #include <deque>
+#include "MyQueue.h"
 #include "Alberto.h"
 #define uint unsigned int
 struct Foo

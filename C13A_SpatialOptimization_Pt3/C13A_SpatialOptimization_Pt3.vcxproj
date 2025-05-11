@@ -11,8 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{66B46DE0-118E-44B9-B155-0CF84D763B84}</ProjectGuid>
-    <ProjectName>C11C_SpatialOptimization_Pt4</ProjectName>
+    <ProjectGuid>{72B98466-1806-4EE7-AE3A-CD966FC79A6C}</ProjectGuid>
+    <ProjectName>C13A_SpatialOptimization_Pt3</ProjectName>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />

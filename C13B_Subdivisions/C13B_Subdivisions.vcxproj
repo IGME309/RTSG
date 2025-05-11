@@ -11,8 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{BBC1278A-4024-4FE9-A998-4B3373B78761}</ProjectGuid>
-    <ProjectName>C11C_SpatialOptimization_Pt2</ProjectName>
+    <ProjectGuid>{2710D1FA-B65D-4470-9D11-C64A08C88262}</ProjectGuid>
+    <ProjectName>C13B_Subdivisions</ProjectName>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -105,18 +105,14 @@
     <ClCompile Include="AppClassControls.cpp" />
     <ClCompile Include="AppClassGUI.cpp" />
     <ClCompile Include="AppClassMain.cpp" />
-    <ClCompile Include="Entity.cpp" />
-    <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="RigidBody.cpp" />
+    <ClCompile Include="Node.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\res\resource.h" />
     <ClInclude Include="AppClass.h" />
-    <ClInclude Include="Entity.h" />
-    <ClInclude Include="EntityManager.h" />
     <ClInclude Include="Main.h" />
-    <ClInclude Include="RigidBody.h" />
+    <ClInclude Include="Node.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\res\ICON.rc" />

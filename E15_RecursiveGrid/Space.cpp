@@ -1,8 +1,8 @@
 #include "Space.h"
 using namespace RTSG;
 //  Space
-uint Space::m_uNodeCount = 0;
-Space::Space(uint a_nSubdivisionsX, uint a_nSubdivisionsY, uint a_nSubdivisionsZ)
+uint Node::m_uNodeCount = 0;
+Node::Node(uint a_nSubdivisionsX, uint a_nSubdivisionsY, uint a_nSubdivisionsZ)
 {
 	/*
 	* This constructor is meant to be used ONLY on the root Space, there is already a working constructor
@@ -49,7 +49,7 @@ Space::Space(uint a_nSubdivisionsX, uint a_nSubdivisionsY, uint a_nSubdivisionsZ
 	AssignIDstoEntities();
 }
 //Private constructor
-Space::Space(vector3 a_v3Center, vector3 a_v3Size)
+Node::Node(vector3 a_v3Center, vector3 a_v3Size)
 {
 	//This can only be applied to children not the root
 	if (m_uNodeCount < 1)
@@ -64,7 +64,7 @@ Space::Space(vector3 a_v3Center, vector3 a_v3Size)
 	m_uID = m_uNodeCount;
 	m_uNodeCount++;
 }
-bool Space::IsColliding(uint a_uRBIndex)
+bool Node::IsColliding(uint a_uRBIndex)
 {
 	//If the index given is larger than the number of elements in 
 	//the entity manager there is no collision
@@ -77,7 +77,7 @@ bool Space::IsColliding(uint a_uRBIndex)
 	//Ask if the rigid body of the entity is colliding with this Space
 	return m_pRigidBody->IsColliding(pRigidBody, false);
 }
-void Space::Display(uint a_nIndex)
+void Node::Display(uint a_nIndex)
 {
 	//If a value larger than the count of nodes is sent render all
 	if (a_nIndex > m_uNodeCount)
@@ -103,7 +103,7 @@ void Space::Display(uint a_nIndex)
 			glm::translate(v3Center) * glm::scale(v3Size));
 	}
 }
-void Space::Display()
+void Node::Display()
 {
 	//Traverse the children
 	for (uint nIndex = 0; nIndex < m_uChildren; nIndex++)
@@ -119,7 +119,7 @@ void Space::Display()
 		RTSG::eBTX_SPECIALMODEL::CUBEWHITE, 
 		glm::translate(v3Center) * glm::scale(v3Size));
 }
-void Space::Subdivide(void)
+void Node::Subdivide(void)
 {
 	//If this Space has been subdivided already, return without changes
 	if (m_uChildren != 0)
@@ -147,7 +147,7 @@ void Space::Subdivide(void)
 		{
 			for (uint x = 0; x < m_uSubX; x++)
 			{
-				m_pChild[index] = new Space(v3CurrentPosition, v3ChildrenSize);
+				m_pChild[index] = new Node(v3CurrentPosition, v3ChildrenSize);
 				m_pChild[index]->m_uLevel = m_uLevel + 1;
 				v3CurrentPosition.x += v3ChildrenSize.x;
 				index++;
@@ -160,7 +160,7 @@ void Space::Subdivide(void)
 		v3CurrentPosition.z += v3ChildrenSize.z;
 	}
 }
-void Space::AssignIDstoEntities(void)
+void Node::AssignIDstoEntities(void)
 {
 	//Traverse the children
 	for (uint nIndex = 0; nIndex < m_uChildren; nIndex++)
@@ -185,7 +185,7 @@ void Space::AssignIDstoEntities(void)
 		}
 	}
 }
-void Space::Init(void)
+void Node::Init(void)
 {
 	m_uID = 0;
 	m_uLevel = 0;
@@ -199,7 +199,7 @@ void Space::Init(void)
 	m_pModelMngr = ModelManager::GetInstance();
 	m_pEntityMngr = EntityManager::GetInstance();
 }
-void Space::Swap(Space& other)
+void Node::Swap(Node& other)
 {
 	std::swap(m_uID, other.m_uID);
 	std::swap(m_uLevel, other.m_uLevel);
@@ -213,7 +213,7 @@ void Space::Swap(Space& other)
 	m_pModelMngr = ModelManager::GetInstance();
 	m_pEntityMngr = EntityManager::GetInstance();
 }
-void Space::Release(void)
+void Node::Release(void)
 {
 	//recursive behavior, get to the children first then release root
 	for (uint nIndex = 0; nIndex < m_uChildren; nIndex++)
@@ -236,7 +236,7 @@ void Space::Release(void)
 	}
 }
 //The big 3
-Space::Space(Space const& other)
+Node::Node(Node const& other)
 {
 	m_uID = other.m_uID;
 	m_uLevel = other.m_uLevel;
@@ -250,21 +250,21 @@ Space::Space(Space const& other)
 	m_pModelMngr = ModelManager::GetInstance();
 	m_pEntityMngr = EntityManager::GetInstance();
 }
-Space& Space::operator=(Space const& other)
+Node& Node::operator=(Node const& other)
 {
 	if (this != &other)
 	{
 		Release();
 		Init();
-		Space temp(other);
+		Node temp(other);
 		Swap(temp);
 	}
 	return *this;
 }
-Space::~Space() { Release(); };
+Node::~Node() { Release(); };
 //Accessors
-vector3 Space::GetCenterGlobal(void) { return m_pRigidBody->GetCenterGlobal(); }
-vector3 Space::GetMinGlobal(void) { return m_pRigidBody->GetMinGlobal(); }
-vector3 Space::GetMaxGlobal(void) { return m_pRigidBody->GetMaxGlobal(); }
-bool Space::IsLeaf(void) { return m_pChild == nullptr; } //Is it childless?
-uint Space::GetNodeCount(void) { return m_uNodeCount; }
+vector3 Node::GetCenterGlobal(void) { return m_pRigidBody->GetCenterGlobal(); }
+vector3 Node::GetMinGlobal(void) { return m_pRigidBody->GetMinGlobal(); }
+vector3 Node::GetMaxGlobal(void) { return m_pRigidBody->GetMaxGlobal(); }
+bool Node::IsLeaf(void) { return m_pChild == nullptr; } //Is it childless?
+uint Node::GetNodeCount(void) { return m_uNodeCount; }

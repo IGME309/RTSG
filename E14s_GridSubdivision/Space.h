@@ -9,9 +9,9 @@ Date: 2023/11
 #include "RTSG\TypeDefs.h"
 
 //System Class
-class Space
+class Node
 {
-	typedef Space* PNode; //This will be used for a pointer array of pointers
+	typedef Node* PNode; //This will be used for a pointer array of pointers
 	static uint m_uNodeCount; //will store the number of nodes instantiated
 	
 	uint m_uID = 0; //Will store the current ID for this Space
@@ -37,14 +37,14 @@ public:
 	- uint a_nSubdivisionsZ -> Sets the number of subdivisions deeply
 	OUTPUT: class object
 	*/
-	Space(uint a_nSubdivisionsX = 1, uint a_nSubdivisionsY = 1, uint a_nSubdivisionsZ = 1);
+	Node(uint a_nSubdivisionsX = 1, uint a_nSubdivisionsY = 1, uint a_nSubdivisionsZ = 1);
 
 	/*
 	USAGE: Destructor
 	ARGUMENTS: ---
 	OUTPUT: ---
 	*/
-	~Space(void);
+	~Node(void);
 
 	/*
 	USAGE: Gets the center of the Space in global scape
@@ -127,21 +127,21 @@ private:
 	- float a_fSize -> size of each side of the Space volume
 	OUTPUT: class object
 	*/
-	Space(vector3 a_v3Center, vector3 a_v3Size);
+	Node(vector3 a_v3Center, vector3 a_v3Size);
 
 	/*
 	USAGE: Copy Constructor
 	ARGUMENTS: class object to copy
 	OUTPUT: class object instance
 	*/
-	Space(Space const& other);
+	Node(Node const& other);
 
 	/*
 	USAGE: Copy Assignment Operator
 	ARGUMENTS: class object to copy
 	OUTPUT: ---
 	*/
-	Space& operator=(Space const& other);
+	Node& operator=(Node const& other);
 
 	/*
 	USAGE: Deallocates member fields
@@ -163,7 +163,7 @@ private:
 	- Space& other -> object to swap content from
 	OUTPUT: ---
 	*/
-	void Swap(Space& other);
+	void Swap(Node& other);
 };//class
 
 
